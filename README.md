@@ -79,6 +79,69 @@ Get started quickly with our pre-built frontend starter apps, or add telephony s
 
 For advanced customization, see the [complete frontend guide](https://docs.livekit.io/agents/v0/voice-agent/client-apps/).
 
+## Package Manager Conversion
+
+This project includes a tool to convert between different Node.js package managers. The default is pnpm for fast, efficient dependency management, but you can switch to your preferred package manager.
+
+### Supported Package Managers
+
+- **pnpm** (default) - Fast, disk space efficient package manager
+- **npm** - Standard Node.js package manager
+- **Yarn Classic** - Alternative package manager (v1)
+- **Yarn Berry** - Modern Yarn with Plug'n'Play (v3+)
+- **Bun** - All-in-one JavaScript runtime and package manager
+
+### Converting to a Different Package Manager
+
+```bash
+# Show available options
+make help
+
+# Convert to npm
+make convert-to-npm
+
+# Convert to Yarn
+make convert-to-yarn
+
+# Convert to Yarn Berry
+make convert-to-yarn-berry
+
+# Convert to Bun
+make convert-to-bun
+
+# Rollback to previous package manager
+make rollback
+```
+
+**⚠️ Important Notes:**
+
+- Converting will download the official LiveKit Dockerfile templates and reset any custom Dockerfile modifications
+- Your original files are backed up to `.backup.{package-manager}/`
+- Lock files are NOT generated automatically - follow the instructions after conversion
+- Multiple conversions create multiple backups; rollback shows a menu to select which to restore
+
+## Building and Testing with Docker
+
+To test your agent in a production-like environment, build and run the Docker container locally:
+
+```bash
+# Build the Docker image
+docker build -t my-agent .
+
+# Run the container with environment variables (LiveKit variables are required, others as needed)
+docker run --rm \
+  -e LIVEKIT_URL=your-url \
+  -e LIVEKIT_API_KEY=your-key \
+  -e LIVEKIT_API_SECRET=your-secret \
+  -e OPENAI_API_KEY=your-key \
+  -e DEEPGRAM_API_KEY=your-key \
+  -e CARTESIA_API_KEY=your-key \
+  my-agent
+
+# Or use an env file
+docker run --rm --env-file .env.local my-agent
+```
+
 ## Using this template repo for your own project
 
 Once you've started your own project based on this repo, you should:
