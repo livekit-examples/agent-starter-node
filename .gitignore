@@ -174,7 +174,7 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
-# turbo 
+# turbo
 .turbo
 
 # API extractor
@@ -203,3 +203,6 @@ ehthumbs.db
 # Build info and cache
 *.tsbuildinfo
 .eslintcache
+
+# Setup artifacts
+.task/

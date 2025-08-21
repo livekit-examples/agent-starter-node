@@ -2,17 +2,18 @@ version: "3"
 output: interleaved
 dotenv: [".env.local"]
 
+
+includes:
+  index: https://raw.githubusercontent.com/livekit-examples/index/main/taskfile.yaml
+
 tasks:
   post_create:
     desc: "Runs after this template is instantiated as a Sandbox or Bootstrap"
     cmds:
-      - echo -e "To setup and run the agent:\r\n"
-      - echo -e "    cd {{.ROOT_DIR}}\r"
-      - echo -e "    pnpm install\r"
-      - echo -e "    pnpm build\r"
-      - echo -e "    node dist/agent.js dev\r\n"
+      - task: index:help_setup_node_pnpm
+      - task: index:help_deploy_agent
 
   install:
     desc: "Bootstrap application for local development"
     cmds:
-      - "pnpm install"
+      - task: index:dev_node_pnpm
