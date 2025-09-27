@@ -24,7 +24,7 @@ This project uses [pnpm](https://pnpm.io/) as the package manager.
 Clone the repository and install dependencies:
 
 ```console
-cd agent-starter-nodejs
+cd agent-starter-node
 pnpm install
 ```
 
