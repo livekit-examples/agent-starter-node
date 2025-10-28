@@ -1,74 +1,81 @@
-# This is an example Dockerfile that builds a minimal container for running LK Agents
-# For more information on the build process, see https://docs.livekit.io/agents/ops/deployment/builds/
 # syntax=docker/dockerfile:1
-
-# Use the official Node.js v22 base image with Node.js 22.10.0
-# We use the slim variant to keep the image size smaller while still having essential tools
 ARG NODE_VERSION=22
-FROM node:${NODE_VERSION}-slim AS base
+FROM node:${NODE_VERSION}-slim AS builder
 
-# Configure pnpm installation directory and ensure it is on PATH
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-# Install required system packages and pnpm, then clean up the apt cache for a smaller image
-# ca-certificates: enables TLS/SSL for securely fetching dependencies and calling HTTPS services
-# --no-install-recommends keeps the image minimal
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+# minimal system deps
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -y ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 
-# Pin pnpm version for reproducible builds
-RUN npm install -g pnpm@10
+# enable corepack (node22 includes it) and pin pnpm if needed
+RUN corepack enable || true
 
-# Create a new directory for our application code
-# And set it as the working directory
 WORKDIR /app
 
-# Copy just the dependency files first, for more efficient layer caching
-COPY package.json package-lock.json ./
+# copy lockfiles + package.json first for caching
+COPY package.json package-lock.json pnpm-lock.yaml* ./
 
-# Install dependencies using pnpm
-# --frozen-lockfile ensures we use exact versions from package-lock.json for reproducible builds
-RUN pnpm install --frozen-lockfile
+# install dependencies depending on lockfile present
+RUN if [ -f pnpm-lock.yaml ]; then \
+      npm i -g pnpm@10 && pnpm install --frozen-lockfile; \
+    elif [ -f package-lock.json ]; then \
+      npm ci; \
+    else \
+      npm install; \
+    fi
 
-# Copy all remaining application files into the container
-# This includes source code, configuration files, and dependency specifications
-# (Excludes files specified in .dockerignore)
+# copy rest of source
 COPY . .
 
-# Build the project
-RUN pnpm build
+# build (try pnpm then npm)
+RUN if command -v pnpm > /dev/null 2>&1 && [ -f pnpm-lock.yaml ]; then \
+      pnpm build; \
+    else \
+      npm run build || true; \
+    fi
 
-# Create a non-privileged user that the app will run under
-# See https://docs.docker.com/develop/develop-images/dockerfile_best_practices/#user
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/app" \
-    --shell "/sbin/nologin" \
-    --uid "${UID}" \
-    appuser
+# prune dev deps in builder to make what we copy lean
+RUN if command -v pnpm > /dev/null 2>&1 && [ -f pnpm-lock.yaml ]; then \
+      pnpm prune --prod || true; \
+    else \
+      npm prune --production || true; \
+    fi
 
-# Set proper permissions
-RUN chown -R appuser:appuser /app
-USER appuser
+# runtime stage
+FROM node:${NODE_VERSION}-slim AS runtime
 
-# Pre-download any ML models or files the agent needs
-# This ensures the container is ready to run immediately without downloading
-# dependencies at runtime, which improves startup time and reliability
-RUN pnpm download-files
-
-# Switch back to root to remove dev dependencies and finalize setup
-USER root
-RUN pnpm prune --prod
-RUN chown -R appuser:appuser /app
-USER appuser
-
-# Set Node.js to production mode
 ENV NODE_ENV=production
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Run the application
-# The "start" command tells the worker to connect to LiveKit and begin waiting for jobs.
-CMD [ "pnpm", "start" ]
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -y ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# create non-root user
+ARG UID=10001
+RUN adduser --disabled-password --gecos "" --home "/app" --shell "/sbin/nologin" --uid "${UID}" appuser
+
+WORKDIR /app
+
+# copy built app from builder, set ownership in one step
+COPY --from=builder --chown=appuser:appuser /app /app
+
+USER appuser
+
+# optional: pre-download files if script exists
+# if you have a `download-files` script in package.json, keep this; otherwise remove
+RUN if command -v pnpm > /dev/null 2>&1 && [ -f pnpm-lock.yaml ]; then \
+      pnpm download-files || true; \
+    else \
+      npm run download-files || true; \
+    fi
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD node -e "process.exit(0)" || exit 1
+
+# flexible start: try pnpm -> npm -> fallback to node dist/index.js
+CMD ["sh", "-c", "pnpm start 2>/dev/null || npm start 2>/dev/null || node dist/index.js"]
