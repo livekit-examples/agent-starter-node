@@ -11,12 +11,12 @@ tasks:
   post_create:
     desc: "Runs after this template is instantiated as a Sandbox or Bootstrap"
     cmds:
-      - echo 'To try the new agent directly in your terminal:'
+      - echo 'To run the new agent locally:'
       - echo ''
       - echo '{{ indent .INDENT "cd" }} {{ .REL_PATH }}'
-      - echo '{{ indent .INDENT "uv sync" }}'
-      - echo '{{ indent .INDENT "uv run" }} {{ .NODE_MAIN }} download-files'
-      - echo '{{ indent .INDENT "uv run" }} {{ .NODE_MAIN }} console'
+      - echo '{{ indent .INDENT "pnpm install" }}'
+      - echo '{{ indent .INDENT "pnpm download-files" }}'
+      - echo '{{ indent .INDENT "pnpm dev" }}'
       - echo ''
       - echo 'To deploy your agent to LiveKit cloud:'
       - echo ''
