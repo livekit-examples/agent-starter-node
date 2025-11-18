@@ -1,7 +1,7 @@
 import {
   type JobContext,
   type JobProcess,
-  WorkerOptions,
+  ServerOptions,
   cli,
   defineAgent,
   inference,
@@ -79,6 +79,10 @@ export default defineAgent({
       // See more at https://docs.livekit.io/agents/build/turns
       turnDetection: new livekit.turnDetector.MultilingualModel(),
       vad: ctx.proc.userData.vad! as silero.VAD,
+      voiceOptions: {
+        // Allow the LLM to generate a response while waiting for the end of turn
+        preemptiveGeneration: true,
+      },
     });
 
     // To use a realtime model instead of a voice pipeline, use the following session setup instead.
@@ -123,4 +127,4 @@ export default defineAgent({
   },
 });
 
-cli.runApp(new WorkerOptions({ agent: fileURLToPath(import.meta.url) }));
+cli.runApp(new ServerOptions({ agent: fileURLToPath(import.meta.url) }));
