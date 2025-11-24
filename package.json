@@ -33,9 +33,9 @@
     "typescript-eslint": "^8.46.2"
   },
   "dependencies": {
-    "@livekit/agents": "~1.0.18",
-    "@livekit/agents-plugin-livekit": "~1.0.18",
-    "@livekit/agents-plugin-silero": "~1.0.18",
+    "@livekit/agents": "^1.0.21",
+    "@livekit/agents-plugin-livekit": "^1.0.21",
+    "@livekit/agents-plugin-silero": "^1.0.21",
     "@livekit/noise-cancellation-node": "^0.1.9",
     "dotenv": "^17.2.3",
     "zod": "^3.25.76"
