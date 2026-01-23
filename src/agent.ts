@@ -124,6 +124,11 @@ export default defineAgent({
 
     // Join the room and connect to the user
     await ctx.connect();
+
+    // Greet the user
+    session.generateReply({
+      instructions: 'Greet the user in a helpful and friendly manner.',
+    });
   },
 });
 
