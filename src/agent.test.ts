@@ -1,24 +1,47 @@
-import assert from 'node:assert';
-import { describe, it } from 'node:test';
+import { inference, initializeLogger, voice } from '@livekit/agents';
+import { afterEach, beforeEach, describe, it } from 'vitest';
+import { Assistant } from './agent';
 
-describe('Agent Configuration', () => {
-  it('should have Node.js environment available', () => {
-    // Basic test to ensure Node.js environment is working
-    assert.ok(typeof process !== 'undefined', 'Process should be available');
-    assert.ok(typeof process.env !== 'undefined', 'Environment variables should be accessible');
+type TestableAgentSession = InstanceType<typeof voice.AgentSession> & {
+  run(options: { userInput: string }): voice.testing.RunResult;
+};
+
+// Initialize logger for testing
+initializeLogger({ pretty: false, level: 'debug' });
+
+describe('agent evaluation', () => {
+  let session: TestableAgentSession;
+  let llmInstance: inference.LLM;
+
+  beforeEach(async () => {
+    llmInstance = new inference.LLM({ model: 'openai/gpt-5.1' });
+    session = new voice.AgentSession({ llm: llmInstance }) as TestableAgentSession;
+    await session.start({ agent: new Assistant() });
   });
 
-  it('should be able to import required modules', async () => {
-    // Test that core Node.js modules work
-    const path = await import('node:path');
-    const url = await import('node:url');
-
-    assert.ok(typeof path.dirname === 'function', 'Path module should be available');
-    assert.ok(typeof url.fileURLToPath === 'function', 'URL module should be available');
+  afterEach(async () => {
+    await session?.close();
   });
 
-  it('should have TypeScript compilation working', () => {
-    // This test file being run means TypeScript compiled successfully
-    assert.ok(true, 'TypeScript compilation is working');
+  it('offers assistance', { timeout: 30000 }, async () => {
+    // Run an agent turn following the user's greeting
+    const result = await session.run({ userInput: 'Hello' }).wait();
+
+    // Evaluate the agent's response for friendliness
+    await result.expect
+      .nextEvent()
+      .isMessage({ role: 'assistant' })
+      .judge(llmInstance, {
+        intent: `\
+Greets the user in a friendly manner.
+
+Optional context that may or may not be included:
+- Offer of assistance with any request the user may have
+- Other small talk or chit chat is acceptable, so long as it is friendly and not too intrusive
+`,
+      });
+
+    // Assert that there are no unexpected further events
+    result.expect.noMoreEvents();
   });
 });

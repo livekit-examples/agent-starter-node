@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 
 dotenv.config({ path: '.env.local' });
 
-class Assistant extends voice.Agent {
+export class Assistant extends voice.Agent {
   constructor() {
     super({
       instructions: `You are a helpful voice AI assistant. The user is interacting with you via voice, even if you perceive the conversation as text.
@@ -65,7 +65,7 @@ export default defineAgent({
       // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
       // See all providers at https://docs.livekit.io/agents/models/llm/
       llm: new inference.LLM({
-        model: 'openai/gpt-4.1-mini',
+        model: 'openai/gpt-5.1-mini',
       }),
 
       // Text-to-speech (TTS) is your agent's voice, turning the LLM's text into speech that the user can hear
@@ -127,4 +127,7 @@ export default defineAgent({
   },
 });
 
-cli.runApp(new ServerOptions({ agent: fileURLToPath(import.meta.url) }));
+// Only run the CLI if we're not in a test environment
+if (process.env.NODE_ENV !== 'test') {
+  cli.runApp(new ServerOptions({ agent: fileURLToPath(import.meta.url) }));
+}
