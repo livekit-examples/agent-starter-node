@@ -13,9 +13,9 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "dev": "pnpm run build && node dist/agent.js dev",
-    "download-files": "pnpm run build && node dist/agent.js download-files",
-    "start": "node dist/agent.js start"
+    "dev": "pnpm run build && node dist/main.js dev",
+    "download-files": "pnpm run build && node dist/main.js download-files",
+    "start": "node dist/main.js start"
   },
   "engines": {
     "node": ">=22.0.0",
@@ -29,14 +29,14 @@
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.1",
+    "typescript-eslint": "^8.54.0",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
   },
   "dependencies": {
-    "@livekit/agents": "^1.0.38",
-    "@livekit/agents-plugin-livekit": "^1.0.38",
-    "@livekit/agents-plugin-silero": "^1.0.38",
+    "@livekit/agents": "^1.0.40",
+    "@livekit/agents-plugin-livekit": "^1.0.40",
+    "@livekit/agents-plugin-silero": "^1.0.40",
     "@livekit/noise-cancellation-node": "^0.1.9",
     "dotenv": "^17.2.3",
     "zod": "^3.25.76"
