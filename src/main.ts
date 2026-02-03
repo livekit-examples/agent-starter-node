@@ -25,13 +25,13 @@ export default defineAgent({
     proc.userData.vad = await silero.VAD.load();
   },
   entry: async (ctx: JobContext) => {
-    // Set up a voice AI pipeline using OpenAI, Cartesia, AssemblyAI, and the LiveKit turn detector
+    // Set up a voice AI pipeline using OpenAI, Cartesia, Deepgram, and the LiveKit turn detector
     const session = new voice.AgentSession({
       // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
       // See all available models at https://docs.livekit.io/agents/models/stt/
       stt: new inference.STT({
-        model: 'assemblyai/universal-streaming',
-        language: 'en',
+        model: 'deepgram/nova-3',
+        language: 'multi',
       }),
 
       // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
