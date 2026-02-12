@@ -1,7 +1,7 @@
 import { inference, initializeLogger, voice } from '@livekit/agents';
 import dotenv from 'dotenv';
 import { afterEach, beforeEach, describe, it } from 'vitest';
-import { Assistant } from './agent.js';
+import { Agent } from './agent';
 
 dotenv.config({ path: '.env.local' });
 
@@ -15,7 +15,7 @@ describe('agent evaluation', () => {
   beforeEach(async () => {
     llmInstance = new inference.LLM({ model: 'openai/gpt-5.1' });
     session = new voice.AgentSession({ llm: llmInstance });
-    await session.start({ agent: new Assistant() });
+    await session.start({ agent: new Agent() });
   });
 
   afterEach(async () => {

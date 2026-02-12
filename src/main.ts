@@ -13,7 +13,7 @@ import * as silero from '@livekit/agents-plugin-silero';
 import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
-import { Assistant } from './agent.js';
+import { Agent } from './agent';
 
 // Load environment variables from a local file.
 // Make sure to set LIVEKIT_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET
@@ -84,7 +84,7 @@ export default defineAgent({
 
     // Start the session, which initializes the voice pipeline and warms up the models
     await session.start({
-      agent: new Assistant(),
+      agent: new Agent(),
       room: ctx.room,
       inputOptions: {
         // LiveKit Cloud enhanced noise cancellation
