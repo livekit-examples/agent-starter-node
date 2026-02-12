@@ -5,7 +5,7 @@ vars:
   INDENT: 4
   REL_PATH: "{{ relPath .USER_WORKING_DIR .ROOT_DIR }}"
   VENV_DIR: ".venv"
-  NODE_MAIN: '{{ joinPath "./src" "agent.ts" }}'
+  NODE_MAIN: '{{ joinPath "./src" "main.ts" }}'
 
 tasks:
   post_create:
@@ -31,8 +31,8 @@ tasks:
       - test -z "$LIVEKIT_AGENT_NAME"
     cmds:
       - |
-        old="WorkerOptions("
-        new="WorkerOptions(agent_name=\"{{ .LIVEKIT_AGENT_NAME }}\", "
+        old="agentName: 'my-agent'"
+        new="agentName: '{{ .LIVEKIT_AGENT_NAME }}'"
         file="{{ .NODE_MAIN }}"
         tmp="$(mktemp)"
         while IFS= read -r line; do

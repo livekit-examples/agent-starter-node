@@ -1,7 +1,7 @@
 import { voice } from '@livekit/agents';
 
 // Define a custom voice AI assistant by extending the base Agent class
-export class Assistant extends voice.Agent {
+export class Agent extends voice.Agent {
   constructor() {
     super({
       instructions: `You are a helpful voice AI assistant. The user is interacting with you via voice, even if you perceive the conversation as text.
