@@ -5,8 +5,9 @@ import { Agent } from './agent';
 
 dotenv.config({ path: '.env.local' });
 
-// Initialize logger for testing
-initializeLogger({ pretty: false, level: 'debug' });
+// Initialize logger for testing.
+// You may wish to adjust the log level to print more or less information during test runs.
+initializeLogger({ pretty: true, level: 'warn' });
 
 describe('agent evaluation', () => {
   let session: voice.AgentSession;
