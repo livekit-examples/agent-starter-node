@@ -48,7 +48,7 @@ tasks:
     cmds:
       - echo 'To chat with your running agent, visit:'
       - echo ''
-      - echo '{{ indent .INDENT "https://" }}{{ .LIVEKIT_SANDBOX_ID }}.sandbox.staging.livekit.io'
+      - echo '{{ indent .INDENT "https://" }}{{ .LIVEKIT_SANDBOX_ID }}.sandbox.livekit.io'
       - echo ''
 
 
