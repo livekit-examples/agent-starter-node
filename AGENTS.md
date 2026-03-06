@@ -52,6 +52,4 @@ The Node.js SDK for LiveKit Agents has most, but not all, of the same features a
 
 ## LiveKit CLI
 
-You can make use of the LiveKit CLI (`lk`) for various tasks, with user approval. Installation instructions are available at https://docs.livekit.io/intro/basics/cli/start/ if needed.
-
-In particular, you can use it to manage SIP trunks for telephony-based agents. Refer to `lk sip --help` for more information.
+Beyond documentation access, the LiveKit CLI (`lk`) supports other tasks such as managing SIP trunks for telephony-based agents. Run `lk --help` to explore available commands.
