@@ -68,7 +68,7 @@ winget upgrade LiveKit.LiveKitCLI
 
 #### Using `lk docs`
 
-Browse, search, and read LiveKit documentation directly from the terminal:
+Run `lk docs --help` to see all available commands. Some common examples:
 
 ```
 # Browse the docs table of contents
@@ -90,7 +90,7 @@ lk docs changelog npm:@livekit/agents
 lk docs submit-feedback "Missing info about error handling" --page /agents/build/tools
 ```
 
-Run `lk docs --help` to see all available commands, as more may be available than listed here. For detailed reference, see the [CLI docs search](https://docs.livekit.io/intro/basics/cli/docs/) documentation.
+For detailed reference, see the [CLI docs search](https://docs.livekit.io/intro/basics/cli/docs/) documentation.
 
 ### LiveKit Docs MCP Server
 
