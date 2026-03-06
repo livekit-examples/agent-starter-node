@@ -18,89 +18,19 @@ LiveKit Agents is a fast-evolving project, and the documentation is updated freq
 
 ### LiveKit CLI
 
-The [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) includes a `lk docs` subcommand that gives you full access to LiveKit documentation from the terminal. This works with any coding agent that can run shell commands. The `lk docs` subcommand requires CLI version 2.15.0 or higher.
+The [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) `lk docs` subcommand gives full access to LiveKit documentation from the terminal. Requires CLI version 2.15.0+. Check with `lk --version`.
 
-Check if the CLI is installed and has the required version:
+Install or update the CLI:
 
-```
-lk --version
-```
+- **macOS:** `brew install livekit-cli` (update: `brew update && brew upgrade livekit-cli`)
+- **Linux:** `curl -sSL https://get.livekit.io/cli | bash`
+- **Windows:** `winget install LiveKit.LiveKitCLI` (update: `winget upgrade LiveKit.LiveKitCLI`)
 
-If the CLI is not installed, install it for the developer's platform:
-
-**macOS:**
-
-```
-brew install livekit-cli
-```
-
-**Linux:**
-
-```
-curl -sSL https://get.livekit.io/cli | bash
-```
-
-**Windows:**
-
-```
-winget install LiveKit.LiveKitCLI
-```
-
-If the CLI is installed but the version is below 2.15.0, update it:
-
-**macOS:**
-
-```
-brew update && brew upgrade livekit-cli
-```
-
-**Linux:**
-
-```
-curl -sSL https://get.livekit.io/cli | bash
-```
-
-**Windows:**
-
-```
-winget upgrade LiveKit.LiveKitCLI
-```
-
-#### Using `lk docs`
-
-Run `lk docs --help` to see all available commands. Some common examples:
-
-```
-# Browse the docs table of contents
-lk docs overview
-
-# Search the documentation
-lk docs search "voice agents"
-
-# Read a specific page
-lk docs get-page /agents/start/voice-ai-quickstart
-
-# Search code across LiveKit repositories
-lk docs code-search "class AgentSession" --repo livekit/agents
-
-# Get recent changelog for a package
-lk docs changelog npm:@livekit/agents
-
-# Submit feedback on docs
-lk docs submit-feedback "Missing info about error handling" --page /agents/build/tools
-```
-
-For detailed reference, see the [CLI docs search](https://docs.livekit.io/intro/basics/cli/docs/) documentation.
+Run `lk docs --help` to see all available commands. Key commands: `lk docs overview`, `lk docs search`, `lk docs get-page`, `lk docs code-search`, `lk docs changelog`, `lk docs submit-feedback`. Run `lk docs <command> --help` before using a command for the first time, as the help text includes advice on usage and interpreting results. Prefer browsing (`overview`, `get-page`) over search, and prefer `search` over `code-search`, as docs pages are more up-to-date and provide better context than raw code.
 
 ### LiveKit Docs MCP Server
 
-For deeper IDE integration, LiveKit also offers an [MCP server](https://docs.livekit.io/reference/other/docs-mcp/) that provides the same documentation access. It uses Streamable HTTP transport at the following URL:
-
-```
-https://docs.livekit.io/mcp
-```
-
-Refer to your IDE's documentation for how to add a Streamable HTTP MCP server.
+For deeper IDE integration, LiveKit also offers an [MCP server](https://docs.livekit.io/reference/other/docs-mcp/) with the same documentation access. It uses Streamable HTTP transport at `https://docs.livekit.io/mcp`. Refer to your IDE's documentation for how to add it.
 
 ### Submit docs feedback to LiveKit
 
