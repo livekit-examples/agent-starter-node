@@ -50,7 +50,19 @@ The project includes a complete [AGENTS.md](AGENTS.md) file for these assistants
 
 ## Dev Setup
 
+Create a project from this template with the LiveKit CLI (recommended):
+
+```bash
+lk cloud auth
+lk agent init my-agent --template agent-starter-node
+```
+
+The CLI clones the template and configures your environment. Then follow the rest of this guide from [Run the agent](#run-the-agent).
+
 This project uses [pnpm](https://pnpm.io/) as the package manager.
+
+<details>
+<summary>Alternative: Manual setup without the CLI</summary>
 
 Clone the repository and install dependencies:
 
@@ -71,6 +83,8 @@ You can load the LiveKit environment automatically using the [LiveKit CLI](https
 lk cloud auth
 lk app env -w -d .env.local
 ```
+
+</details>
 
 ## Run the agent
 
