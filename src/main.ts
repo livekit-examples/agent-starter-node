@@ -5,7 +5,6 @@ import {
   cli,
   defineAgent,
   inference,
-  metrics,
   voice,
 } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
@@ -66,21 +65,6 @@ export default defineAgent({
     // const session = new voice.AgentSession({
     //   llm: new openai.realtime.RealtimeModel({ voice: 'marin' }),
     // });
-
-    // Metrics collection, to measure pipeline performance
-    // For more information, see https://docs.livekit.io/agents/build/metrics/
-    const usageCollector = new metrics.UsageCollector();
-    session.on(voice.AgentSessionEventTypes.MetricsCollected, (ev) => {
-      metrics.logMetrics(ev.metrics);
-      usageCollector.collect(ev.metrics);
-    });
-
-    const logUsage = async () => {
-      const summary = usageCollector.getSummary();
-      console.log(`Usage: ${JSON.stringify(summary)}`);
-    };
-
-    ctx.addShutdownCallback(logUsage);
 
     // Start the session, which initializes the voice pipeline and warms up the models
     await session.start({
