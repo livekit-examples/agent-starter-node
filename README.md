@@ -11,6 +11,7 @@ The starter project includes:
 - A simple voice AI assistant, ready for extension and customization
 - A voice AI pipeline built on [LiveKit Inference](https://docs.livekit.io/agents/models/inference)
   with [models](https://docs.livekit.io/agents/models) from OpenAI, Cartesia, and Deepgram. More than 50 other model providers are supported, including [Realtime models](https://docs.livekit.io/agents/models/realtime)
+- Eval suite based on the LiveKit Agents [testing & evaluation framework](https://docs.livekit.io/agents/start/testing)
 - [LiveKit Turn Detector](https://docs.livekit.io/agents/logic/turns/turn-detector/) for contextually-aware speaker detection, with multilingual support
 - [Background voice cancellation](https://docs.livekit.io/transport/media/noise-cancellation/)
 - Deep ession insights from LiveKit [Agent Observability](https://docs.livekit.io/deploy/observability/)
