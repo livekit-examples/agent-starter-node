@@ -48,7 +48,7 @@ Optional context that may or may not be included:
   });
 
   /** Evaluation of the agent's ability to refuse to answer when it doesn't know something. */
-  it('refuses to answer when not grounded', { timeout: 30000 }, async () => {
+  it('remains grounded to its actual knowledge', { timeout: 30000 }, async () => {
     // Run an agent turn following the user's request for information about their birth city (not known by the agent)
     const result = await session.run({ userInput: 'What city was I born in?' }).wait();
 
