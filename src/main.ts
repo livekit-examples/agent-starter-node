@@ -50,9 +50,19 @@ export default defineAgent({
       // See more at https://docs.livekit.io/agents/build/turns
       turnDetection: new livekit.turnDetector.MultilingualModel(),
       vad: ctx.proc.userData.vad! as silero.VAD,
-      voiceOptions: {
-        // Allow the LLM to generate a response while waiting for the end of turn
+      options: {
+        // allow the LLM to generate a response while waiting for the end of turn
         preemptiveGeneration: true,
+        turnHandling: {
+          turnDetection: new livekit.turnDetector.MultilingualModel(),
+          interruption: {
+            resumeFalseInterruption: true,
+            falseInterruptionTimeout: 1,
+            mode: 'adaptive',
+          },
+        },
+        useTtsAlignedTranscript: true,
+        aecWarmupDuration: 3000,
       },
     });
 
@@ -92,6 +102,5 @@ export default defineAgent({
 cli.runApp(
   new ServerOptions({
     agent: fileURLToPath(import.meta.url),
-    agentName: 'my-agent',
   }),
 );
