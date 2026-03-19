@@ -195,6 +195,7 @@ audit-report.json
 *.swp
 *.swo
 *~
+*.code-workspace
 
 # OS generated files
 Thumbs.db
