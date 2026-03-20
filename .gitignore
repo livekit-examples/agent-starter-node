@@ -103,6 +103,7 @@ web_modules/
 .env
 .env.development.local
 .env.test.local
+.env.staging.local
 .env.production.local
 .env.local
 
