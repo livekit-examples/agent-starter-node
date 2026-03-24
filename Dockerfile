@@ -41,12 +41,6 @@ COPY . .
 # Your package.json must contain a "build" script, such as `"build": "tsc"`
 RUN pnpm build
 
-# Pre-download any ML models or files the agent needs
-# This ensures the container is ready to run immediately without downloading
-# dependencies at runtime, which improves startup time and reliability
-# Your package.json must contain a "download-files" script, such as `"download-files": "pnpm run build && node dist/agent.js download-files"`
-RUN pnpm download-files
-
 # Remove dev dependencies for a leaner production image
 RUN pnpm prune --prod
 
@@ -71,6 +65,11 @@ WORKDIR /app
 COPY --from=build --chown=appuser:appuser /app /app
 
 USER appuser
+
+# Pre-download any ML models or files the agent needs
+# This ensures the container is ready to run immediately without downloading
+# dependencies at runtime, which improves startup time and reliability
+RUN node dist/main.js download-files
 
 # Set Node.js to production mode
 ENV NODE_ENV=production
