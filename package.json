@@ -15,7 +15,10 @@
     "test:watch": "vitest",
     "dev": "pnpm run build && node dist/main.js dev",
     "download-files": "pnpm run build && node dist/main.js download-files",
-    "start": "node dist/main.js start"
+    "start": "node dist/main.js start",
+    "deploy:development": "lk agent deploy --project hearsay --config livekit.development.toml --secrets-file .env.development.local --region ap-south",
+    "deploy:staging": "lk agent deploy --project hearsay --config livekit.staging.toml --secrets-file .env.staging.local --region eu-central",
+    "deploy:production": "lk agent deploy --project hearsay --config livekit.production.toml --secrets-file .env.production.local --region eu-central"
   },
   "engines": {
     "node": ">=22.0.0",
