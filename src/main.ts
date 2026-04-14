@@ -9,7 +9,7 @@ import {
 } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
-import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
+import { audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
 import { AGENT_MODEL, Agent } from './agent';
@@ -71,10 +71,9 @@ export default defineAgent({
       agent: new Agent(),
       room: ctx.room,
       inputOptions: {
-        // LiveKit Cloud enhanced noise cancellation
-        // - If self-hosting, omit this parameter
-        // - For telephony applications, use `BackgroundVoiceCancellationTelephony` for best results
-        noiseCancellation: BackgroundVoiceCancellation(),
+        // ai-coustics QUAIL audio enhancement for noise cancellation
+        // Works for both WebRTC and telephony (SIP) participants
+        noiseCancellation: audioEnhancement({ model: 'quailVfL' }),
       },
     });
 
