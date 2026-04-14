@@ -12,7 +12,7 @@ import * as silero from '@livekit/agents-plugin-silero';
 import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
-import { Agent } from './agent';
+import { AGENT_MODEL, Agent } from './agent';
 
 // Load environment variables from a local file.
 // Make sure to set LIVEKIT_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET
@@ -36,7 +36,7 @@ export default defineAgent({
       // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
       // See all providers at https://docs.livekit.io/agents/models/llm/
       llm: new inference.LLM({
-        model: 'openai/gpt-5.3-chat-latest',
+        model: AGENT_MODEL,
       }),
 
       // Text-to-speech (TTS) is your agent's voice, turning the LLM's text into speech that the user can hear
