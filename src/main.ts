@@ -1,10 +1,4 @@
-import {
-  ServerOptions,
-  cli,
-  defineAgent,
-  inference,
-  voice,
-} from '@livekit/agents';
+import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
 import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
