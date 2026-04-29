@@ -1,12 +1,4 @@
-import {
-  type JobContext,
-  type JobProcess,
-  ServerOptions,
-  cli,
-  defineAgent,
-  inference,
-  voice,
-} from '@livekit/agents';
+import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
 import { audioEnhancement } from '@livekit/plugins-ai-coustics';
@@ -19,11 +11,15 @@ import { AGENT_MODEL, Agent } from './agent';
 // when running locally or self-hosting your agent server.
 dotenv.config({ path: '.env.local' });
 
-export default defineAgent({
-  prewarm: async (proc: JobProcess) => {
+interface ProcessUserData {
+  vad: silero.VAD;
+}
+
+export default defineAgent<ProcessUserData>({
+  prewarm: async (proc) => {
     proc.userData.vad = await silero.VAD.load();
   },
-  entry: async (ctx: JobContext) => {
+  entry: async (ctx) => {
     // Set up a voice AI pipeline using OpenAI, Cartesia, Deepgram, and the LiveKit turn detector
     const session = new voice.AgentSession({
       // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
@@ -49,7 +45,7 @@ export default defineAgent({
       // VAD and turn detection are used to determine when the user is speaking and when the agent should respond
       // See more at https://docs.livekit.io/agents/build/turns
       turnDetection: new livekit.turnDetector.MultilingualModel(),
-      vad: ctx.proc.userData.vad! as silero.VAD,
+      vad: ctx.proc.userData.vad,
       voiceOptions: {
         // Allow the LLM to generate a response while waiting for the end of turn
         preemptiveGeneration: true,
