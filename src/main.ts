@@ -62,6 +62,17 @@ export default defineAgent<ProcessUserData>({
     //   llm: new openai.realtime.RealtimeModel({ voice: 'marin' }),
     // });
 
+    // // Add a virtual avatar to the session, if desired
+    // // For other providers, see https://docs.livekit.io/agents/models/avatar/
+    // const avatar = new anam.AvatarSession({
+    //   personaConfig: {
+    //     name: '...',
+    //     avatarId: '...', // See https://docs.livekit.io/agents/models/avatar/plugins/anam
+    //   },
+    // });
+    // // Start the avatar and wait for it to join (after session.start)
+    // await avatar.start(session, ctx.room);
+
     // Start the session, which initializes the voice pipeline and warms up the models
     await session.start({
       agent: new Agent(),
@@ -72,20 +83,6 @@ export default defineAgent<ProcessUserData>({
         noiseCancellation: audioEnhancement({ model: 'quailVfL' }),
       },
     });
-
-    // // Add a virtual avatar to the session, if desired
-    // // For other providers, see https://docs.livekit.io/agents/models/avatar/
-    // // 1. Install '@livekit/agents-plugin-anam'
-    // // 2. Set ANAM_API_KEY in .env.local
-    // // 3. Add `import * as anam from '@livekit/agents-plugin-anam'` to the top of this file
-    // // Note: Anam requires session.start() to run first so it can attach to the active audio stream
-    // const avatar = new anam.AvatarSession({
-    //   personaConfig: {
-    //     name: '...', // Persona name
-    //     avatarId: '...', // See https://docs.livekit.io/agents/models/avatar/plugins/anam
-    //   },
-    // });
-    // await avatar.start(session, ctx.room);
 
     // Join the room and connect to the user
     await ctx.connect();
