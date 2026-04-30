@@ -1,6 +1,4 @@
-import { dedent, voice } from '@livekit/agents';
-
-export const AGENT_MODEL = 'openai/gpt-5.2-chat-latest';
+import { dedent, inference, voice } from '@livekit/agents';
 
 // Define a custom voice AI assistant by extending the base Agent class
 export class Agent extends voice.Agent {
@@ -12,6 +10,19 @@ export class Agent extends voice.Agent {
         Your responses are concise, to the point, and without any complex formatting or punctuation including emojis, asterisks, or other symbols.
         You are curious, friendly, and have a sense of humor.
       `,
+
+      // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
+      // See all available models at https://docs.livekit.io/agents/models/llm/
+      llm: new inference.LLM({ model: 'openai/gpt-5.2-chat-latest' }),
+
+      // To use a realtime model instead of a voice pipeline, replace the LLM
+      // with a RealtimeModel and remove the STT/TTS from the AgentSession
+      // (Note: This is for the OpenAI Realtime API. For other providers, see https://docs.livekit.io/agents/models/realtime/)
+      // 1. Install '@livekit/agents-plugin-openai'
+      // 2. Set OPENAI_API_KEY in .env.local
+      // 3. Add `import * as openai from '@livekit/agents-plugin-openai'` to the top of this file
+      // 4. Replace the llm option with:
+      //    llm: new openai.realtime.RealtimeModel({ voice: 'marin' }),
 
       // To add tools, specify `tools` in the constructor.
       // Here's an example that adds a simple weather tool.
