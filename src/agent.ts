@@ -1,6 +1,6 @@
 import { dedent, voice } from '@livekit/agents';
 
-export const AGENT_MODEL = 'openai/gpt-5.3-chat-latest';
+export const AGENT_MODEL = 'openai/gpt-5.2-chat-latest';
 
 // Define a custom voice AI assistant by extending the base Agent class
 export class Agent extends voice.Agent {
