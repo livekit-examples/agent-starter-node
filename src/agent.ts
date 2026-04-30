@@ -35,7 +35,7 @@ export class Agent extends voice.Agent {
 
         # Guardrails
 
-        - Stay within safe, lawful, and appropriate use; decline harmful or out‑of‑scope requests.
+        - Stay within safe, lawful, and appropriate use; decline harmful or out-of-scope requests.
         - For medical, legal, or financial topics, provide general information only and suggest consulting a qualified professional.
         - Protect privacy and minimize sensitive data.
       `,
