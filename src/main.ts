@@ -73,6 +73,17 @@ export default defineAgent<ProcessUserData>({
       },
     });
 
+    // // Add a virtual avatar to the session, if desired
+    // // For other providers, see https://docs.livekit.io/agents/models/avatar/
+    // const avatar = new anam.AvatarSession({
+    //   personaConfig: {
+    //     name: '...',
+    //     avatarId: '...', // See https://docs.livekit.io/agents/models/avatar/plugins/anam
+    //   },
+    // });
+    // // Start the avatar and wait for it to join
+    // await avatar.start(session, ctx.room);
+
     // Join the room and connect to the user
     await ctx.connect();
 
