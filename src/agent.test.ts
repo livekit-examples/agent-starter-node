@@ -15,8 +15,7 @@ describe('agent evaluation', () => {
 
   beforeEach(async () => {
     // We can use a different LLM to evaluate the agent's responses than the one used in the agent itself
-    // This allows you to use reasoning capabilities or larger models than would be practical for realtime chat
-    judgeLlm = new inference.LLM({ model: 'openai/gpt-5.2' });
+    judgeLlm = new inference.LLM({ model: 'openai/gpt-4.1-mini' });
     session = new voice.AgentSession({});
     await session.start({ agent: new Agent() });
   });
