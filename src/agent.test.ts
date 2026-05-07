@@ -1,7 +1,7 @@
 import { dedent, inference, initializeLogger, voice } from '@livekit/agents';
 import dotenv from 'dotenv';
 import { afterEach, beforeEach, describe, it } from 'vitest';
-import { AGENT_MODEL, Agent } from './agent';
+import { Agent } from './agent';
 
 dotenv.config({ path: '.env.local' });
 
@@ -11,20 +11,16 @@ initializeLogger({ pretty: true, level: 'warn' });
 
 describe('agent evaluation', () => {
   let session: voice.AgentSession;
-  let agentLlm: inference.LLM;
   let judgeLlm: inference.LLM;
 
   beforeEach(async () => {
-    agentLlm = new inference.LLM({ model: AGENT_MODEL });
-    // The judge LLM can be a cheaper model since it only evaluates agent responses
     judgeLlm = new inference.LLM({ model: 'openai/gpt-4.1-mini' });
-    session = new voice.AgentSession({ llm: agentLlm });
+    session = new voice.AgentSession();
     await session.start({ agent: new Agent() });
   });
 
   afterEach(async () => {
     await session?.close();
-    await agentLlm?.aclose();
     await judgeLlm?.aclose();
   });
 
