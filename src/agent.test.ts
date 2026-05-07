@@ -14,7 +14,6 @@ describe('agent evaluation', () => {
   let judgeLlm: inference.LLM;
 
   beforeEach(async () => {
-    // We can use a different LLM to evaluate the agent's responses than the one used in the agent itself
     judgeLlm = new inference.LLM({ model: 'openai/gpt-4.1-mini' });
     session = new voice.AgentSession({});
     await session.start({ agent: new Agent() });
