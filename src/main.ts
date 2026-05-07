@@ -53,7 +53,7 @@ export default defineAgent<ProcessUserData>({
       inputOptions: {
         // ai-coustics QUAIL audio enhancement for noise cancellation
         // Works for both WebRTC and telephony (SIP) participants
-        noiseCancellation: audioEnhancement({ model: 'quailVfL' }),
+        noiseCancellation: audioEnhancement({ model: 'quailVfS' }),
       },
     });
 
