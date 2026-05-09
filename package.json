@@ -13,9 +13,9 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "dev": "pnpm run build && node dist/main.js dev",
-    "download-files": "pnpm run build && node dist/main.js download-files",
-    "start": "node dist/main.js start"
+    "dev": "pnpm run build && lk-agent dist/main.js dev",
+    "download-files": "pnpm run build && lk-agent dist/main.js download-files",
+    "start": "lk-agent dist/main.js start"
   },
   "engines": {
     "node": ">=22.0.0",
@@ -34,7 +34,7 @@
     "vitest": "^4.1.4"
   },
   "dependencies": {
-    "@livekit/agents": "^1.4.0",
+    "@livekit/agents": "^1.4.1",
     "@livekit/agents-plugin-livekit": "^1.4.0",
     "@livekit/agents-plugin-silero": "^1.4.0",
     "@livekit/plugins-ai-coustics": "^0.2.12",

@@ -3,7 +3,6 @@ import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
 import { audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'node:url';
 import { Agent } from './agent';
 
 // Load environment variables from a local file.
@@ -81,7 +80,6 @@ export default defineAgent<ProcessUserData>({
 // Run the agent server
 cli.runApp(
   new ServerOptions({
-    agent: fileURLToPath(import.meta.url),
     agentName: 'my-agent',
   }),
 );
