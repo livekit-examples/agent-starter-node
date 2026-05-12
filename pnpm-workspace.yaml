@@ -1,0 +1,11 @@
+# Supply-chain protection: refuse to install package versions that were
+# published less than `minimumReleaseAge` minutes ago. This gives the
+# community time to detect and pull compromised releases before they reach
+# this project. Requires pnpm >= 10.16.0.
+#
+# See https://pnpm.io/settings#minimumreleaseage
+minimumReleaseAge: 1440 # 24 hours, in minutes
+
+# Per-package exceptions (supports glob patterns in pnpm >= 10.17). Add a
+# package here ONLY with human review, e.g. to pick up a same-day CVE fix.
+minimumReleaseAgeExclude: []

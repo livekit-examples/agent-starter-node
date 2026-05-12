@@ -12,6 +12,10 @@ All app-level code is in the `src/` directory. In general, simple agents can be 
 
 Be sure to maintain code formatting. You can use the prettier formatter and eslint to format and lint the code. Scripts are available in `package.json`, including `pnpm format` and `pnpm lint`.
 
+## Dependencies
+
+This project enforces a supply-chain delay via pnpm's `minimumReleaseAge` setting in `pnpm-workspace.yaml`. Package versions published less than 24 hours ago will be refused by `pnpm install`/`pnpm add`. This is intentional protection against compromised releases that get pulled shortly after publication — do not lower the value or move a package to `minimumReleaseAgeExclude` without explicit human approval. If `pnpm install` fails citing release age, wait or ask the developer before bypassing.
+
 ## LiveKit Documentation
 
 LiveKit Agents is a fast-evolving project, and the documentation is updated frequently. You should always refer to the latest documentation when working with this project. For your convenience, LiveKit offers both a CLI and an MCP server that can be used to browse and search its documentation. If the developer has not yet installed the CLI, you should recommend that they install it.
