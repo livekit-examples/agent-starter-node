@@ -8,6 +8,7 @@ FROM node:${NODE_VERSION}-slim AS base
 # Configure pnpm installation directory and ensure it is on PATH
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV HOME="/app"
 
 # Install required system packages and pnpm, then clean up the apt cache for a smaller image
 # ca-certificates: enables TLS/SSL for securely fetching dependencies and calling HTTPS services
