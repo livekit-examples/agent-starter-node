@@ -37,7 +37,7 @@ RUN pnpm install --frozen-lockfile
 # This runs before COPY . . so the download layer is cached across code-only changes.
 # The standalone CLI discovers installed @livekit/agents-plugin-* packages without
 # loading your agent code.
-RUN pnpm download-files
+RUN npx livekit-agents download-files
 
 # Copy all remaining application files into the container
 # This includes source code, configuration files, and dependency specifications

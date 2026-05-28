@@ -14,7 +14,6 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "dev": "pnpm run build && node dist/main.js dev",
-    "download-files": "npx livekit-agents download-files",
     "start": "node dist/main.js start"
   },
   "engines": {
