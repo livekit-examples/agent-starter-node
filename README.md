@@ -94,12 +94,6 @@ lk app env -w -d .env.local
 
 ## Run the agent
 
-The [LiveKit turn detector](https://docs.livekit.io/agents/logic/turns/turn-detector/) and its VAD are now built into the Agents SDK, so no model download is required before your first run. If you add a plugin that ships its own model weights (any `@livekit/agents-plugin-*` package), download them with:
-
-```console
-pnpm run download-files
-```
-
 To run the agent during development, use the `dev` command:
 
 ```console
