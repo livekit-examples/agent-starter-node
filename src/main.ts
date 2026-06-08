@@ -33,7 +33,7 @@ export default defineAgent({
       // AgentSession supplies the required VAD automatically.
       // See more at https://docs.livekit.io/agents/logic/turns/turn-detector/
       turnHandling: {
-        turnDetection: new inference.AudioTurnDetector(),
+        turnDetection: new inference.TurnDetector(),
         // Allow the LLM to generate a response while waiting for the end of turn
         preemptiveGeneration: { enabled: true },
       },
