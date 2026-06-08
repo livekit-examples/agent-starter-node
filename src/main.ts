@@ -1,6 +1,4 @@
 import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agents';
-import * as livekit from '@livekit/agents-plugin-livekit';
-import * as silero from '@livekit/agents-plugin-silero';
 import { audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
@@ -11,14 +9,7 @@ import { Agent } from './agent';
 // when running locally or self-hosting your agent server.
 dotenv.config({ path: '.env.local' });
 
-interface ProcessUserData {
-  vad: silero.VAD;
-}
-
-export default defineAgent<ProcessUserData>({
-  prewarm: async (proc) => {
-    proc.userData.vad = await silero.VAD.load();
-  },
+export default defineAgent({
   entry: async (ctx) => {
     // Set up a voice AI pipeline using OpenAI, Cartesia, Deepgram, and the LiveKit turn detector
     const session = new voice.AgentSession({
@@ -36,13 +27,15 @@ export default defineAgent<ProcessUserData>({
         voice: '9626c31c-bec5-4cca-baa8-f8ba9e84c8bc',
       }),
 
-      // VAD and turn detection are used to determine when the user is speaking and when the agent should respond
-      // See more at https://docs.livekit.io/agents/build/turns
-      turnDetection: new livekit.turnDetector.MultilingualModel(),
-      vad: ctx.proc.userData.vad,
-      voiceOptions: {
+      // Turn detection determines when the user is speaking and when the agent should respond.
+      // The LiveKit audio turn detector is a multimodal model that encodes the user's audio
+      // directly to predict end of turn. It's built into the SDK (no extra plugin) and
+      // AgentSession supplies the required VAD automatically.
+      // See more at https://docs.livekit.io/agents/logic/turns/turn-detector/
+      turnHandling: {
+        turnDetection: new inference.TurnDetector(),
         // Allow the LLM to generate a response while waiting for the end of turn
-        preemptiveGeneration: true,
+        preemptiveGeneration: { enabled: true },
       },
     });
 
