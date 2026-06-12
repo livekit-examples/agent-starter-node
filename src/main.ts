@@ -36,14 +36,16 @@ export default defineAgent<ProcessUserData>({
         voice: '9626c31c-bec5-4cca-baa8-f8ba9e84c8bc',
       }),
 
-      // VAD and turn detection are used to determine when the user is speaking and when the agent should respond
-      // See more at https://docs.livekit.io/agents/build/turns
-      turnDetection: new livekit.turnDetector.MultilingualModel(),
-      vad: ctx.proc.userData.vad,
-      voiceOptions: {
+      turnHandling: {
+        // VAD and turn detection are used to determine when the user is speaking and when the agent should respond
+        // See more at https://docs.livekit.io/agents/build/turns
+        turnDetection: new livekit.turnDetector.MultilingualModel(),
         // Allow the LLM to generate a response while waiting for the end of turn
-        preemptiveGeneration: true,
+        preemptiveGeneration: {
+          enabled: true,
+        },
       },
+      vad: ctx.proc.userData.vad,
     });
 
     // Start the session, which initializes the voice pipeline and warms up the models
