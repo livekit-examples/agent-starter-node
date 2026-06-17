@@ -37,6 +37,7 @@ export default defineAgent({
         // Allow the LLM to generate a response while waiting for the end of turn
         preemptiveGeneration: { enabled: true },
       },
+      vad: ctx.proc.userData.vad,
     });
 
     // Start the session, which initializes the voice pipeline and warms up the models
