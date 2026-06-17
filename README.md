@@ -94,12 +94,6 @@ lk app env -w -d .env.local
 
 ## Run the agent
 
-Before your first run, you must download certain models such as [Silero VAD](https://docs.livekit.io/agents/logic/turns/vad/) and the [LiveKit turn detector](https://docs.livekit.io/agents/logic/turns/turn-detector/):
-
-```console
-pnpm run download-files
-```
-
 To run the agent during development, use the `dev` command:
 
 ```console
