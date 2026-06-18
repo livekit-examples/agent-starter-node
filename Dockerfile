@@ -43,9 +43,9 @@ COPY . .
 # Your package.json must contain a "build" script, such as `"build": "tsc"`
 RUN pnpm build
 
-# Pre-download any ML models or files the agent needs
-# This ensures the container is ready to run immediately without downloading
-# dependencies at runtime, which improves startup time and reliability
+# Pre-download model weights for any plugins that ship them, so they're baked into
+# the image instead of fetched at runtime. Plugins like the text turn detector fetch
+# their weights during this step.
 # Your package.json must contain a "download-files" script, such as `"download-files": "pnpm run build && node dist/agent.js download-files"`
 RUN pnpm download-files
 

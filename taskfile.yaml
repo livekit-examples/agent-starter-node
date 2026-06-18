@@ -15,7 +15,6 @@ tasks:
       - echo ''
       - echo '{{ indent .INDENT "cd" }} {{ .REL_PATH }}'
       - echo '{{ indent .INDENT "pnpm install" }}'
-      - echo '{{ indent .INDENT "pnpm download-files" }}'
       - echo '{{ indent .INDENT "pnpm dev" }}'
       - echo ''
       - task: help_open_web_console
