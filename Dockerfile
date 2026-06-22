@@ -74,6 +74,11 @@ COPY --from=build --chown=appuser:appuser /app /app
 
 USER appuser
 
+# Pre-download any ML models or files the agent needs
+# This ensures the container is ready to run immediately without downloading
+# dependencies at runtime, which improves startup time and reliability
+RUN node dist/main.js download-files
+
 # Set Node.js to production mode
 ENV NODE_ENV=production
 
