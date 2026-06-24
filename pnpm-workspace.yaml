@@ -1,0 +1,8 @@
+allowBuilds:
+  '@ffmpeg-installer/darwin-arm64': true
+  '@livekit/local-inference': true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - '@livekit/agents@0.0.0-next-20260624041820'
