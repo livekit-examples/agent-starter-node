@@ -14,7 +14,7 @@ tasks:
       - echo 'To run the new agent locally:'
       - echo ''
       - echo '{{ indent .INDENT "cd" }} {{ .REL_PATH }}'
-      - echo '{{ indent .INDENT "pnpm install" }}'
+      - task: help_install_hint_if_needed
       - echo '{{ indent .INDENT "pnpm download-files" }}'
       - echo '{{ indent .INDENT "pnpm dev" }}'
       - echo ''
@@ -25,6 +25,14 @@ tasks:
       - echo ''
       - task: set_agent_name_if_present
       - task: help_open_sandbox_if_present
+
+  help_install_hint_if_needed:
+    desc: "Print the local install hint, unless the CLI already installed dependencies"
+    status:
+      # Skip when `lk agent init --install` already ran the install task.
+      - test -n "$LIVEKIT_DEPS_INSTALLED"
+    cmds:
+      - echo '{{ indent .INDENT "pnpm install" }}'
 
   set_agent_name_if_present:
     desc: "When LIVEKIT_AGENT_NAME is set, configure the agent to use it on init"
