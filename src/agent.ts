@@ -1,6 +1,8 @@
 import { dedent, inference, voice } from '@livekit/agents';
 
-// Define a custom voice AI assistant by extending the base Agent class
+// Define a custom voice AI assistant by extending the base Agent class.
+// (As of @livekit/agents 1.5.0 you can also build one inline with
+// `voice.Agent.create({ instructions, ... })` instead of subclassing.)
 export class Agent extends voice.Agent {
   constructor() {
     super({
@@ -53,9 +55,10 @@ export class Agent extends voice.Agent {
 
       // To add tools, specify `tools` in the constructor.
       // Here's an example that adds a simple weather tool.
-      // You also have to add `import { llm } from '@livekit/agents' and `import { z } from 'zod'` to the top of this file
-      // tools: {
-      //   getWeather: llm.tool({
+      // You also have to add `import { llm } from '@livekit/agents'` and `import { z } from 'zod'` to the top of this file
+      // tools: [
+      //   llm.tool({
+      //     name: 'getWeather',
       //     description: dedent`
       //       Use this tool to look up current weather information in the given location.
       //
@@ -73,7 +76,7 @@ export class Agent extends voice.Agent {
       //       return 'sunny with a temperature of 70 degrees.';
       //     },
       //   }),
-      // },
+      // ],
     });
   }
 }
