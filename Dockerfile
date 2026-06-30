@@ -45,9 +45,6 @@ RUN npx livekit-agents download-files
 # (Excludes files specified in .dockerignore)
 COPY . .
 
-# No build step: Node runs the TypeScript entrypoint directly via built-in
-# type stripping. The "start" script invokes `node src/main.ts start`.
-
 # Remove dev dependencies for a leaner production image
 RUN pnpm prune --prod
 
