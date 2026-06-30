@@ -1,8 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Use the official Node.js v24 base image
-# We use the slim variant to keep the image size smaller while still having essential tools.
-# Node 24 runs TypeScript directly via built-in type stripping, so there's no build step.
+# We use the slim variant to keep the image size smaller while still having essential tools
 ARG NODE_VERSION=24
 FROM node:${NODE_VERSION}-slim AS base
 
