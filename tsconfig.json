@@ -1,6 +1,6 @@
 {
   "include": ["./src/**/*"],
-  "exclude": ["./dist", "./node_modules", "**/*.test.ts", "**/*.spec.ts"],
+  "exclude": ["./node_modules", "**/*.test.ts", "**/*.spec.ts"],
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
@@ -18,12 +18,13 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+    // Node strips types at runtime; tsc is used only for type checking.
+    // `allowImportingTsExtensions` permits the explicit `.ts` import
+    // specifiers that Node's native type stripping requires, and
+    // `erasableSyntaxOnly` rejects TS-only syntax (enums, namespaces,
+    // parameter properties) that Node cannot strip without transformation.
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true
   }
 }

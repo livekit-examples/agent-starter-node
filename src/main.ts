@@ -2,7 +2,7 @@ import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agen
 import { audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
-import { Agent } from './agent';
+import { Agent } from './agent.ts';
 
 // Load environment variables from a local file.
 // Make sure to set LIVEKIT_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET
