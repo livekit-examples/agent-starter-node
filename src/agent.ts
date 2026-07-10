@@ -1,7 +1,6 @@
 import { Agent, dedent, inference } from '@livekit/agents';
 
 // Build a custom voice AI assistant with the functional `Agent.create` API
-// (introduced in @livekit/agents 1.5.0). You can also subclass `voice.Agent`.
 export function createAgent() {
   return Agent.create({
     instructions: dedent`
