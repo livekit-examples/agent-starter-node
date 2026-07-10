@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
-# Use the official Node.js v22 base image
+# Use the official Node.js v24 base image
 # We use the slim variant to keep the image size smaller while still having essential tools
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
 FROM node:${NODE_VERSION}-slim AS base
 
 # Configure pnpm installation directory and ensure it is on PATH
@@ -45,10 +45,6 @@ RUN npx livekit-agents download-files
 # (Excludes files specified in .dockerignore)
 COPY . .
 
-# Build the project
-# Your package.json must contain a "build" script, such as `"build": "tsc"`
-RUN pnpm build
-
 # Remove dev dependencies for a leaner production image
 RUN pnpm prune --prod
 
@@ -79,5 +75,5 @@ ENV NODE_ENV=production
 
 # Run the application
 # The "start" command tells the worker to connect to LiveKit and begin waiting for jobs.
-# Your package.json must contain a "start" script, such as `"start": "node dist/agent.js start"`
+# Your package.json must contain a "start" script, such as `"start": "node src/main.ts start"`
 CMD [ "pnpm", "start" ]
