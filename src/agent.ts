@@ -75,35 +75,5 @@ export function createAgent() {
     //     },
     //   }),
     // ],
-
-    // You can also group long-running async tools behind a shared, scoped lifecycle with an
-    // `AsyncToolset` (import `AsyncToolset` from '@livekit/agents'). `setup` runs when the agent
-    // becomes active — connect to a backend and register tools via `updateTools` — and `aclose`
-    // tears it down. Its tools run on a scoped executor, so non-blocking / cancellable async
-    // tools keep working across agent handoffs. Add the toolset to this `tools` array like any
-    // other tool:
-    //
-    // let supportClient: SupportClient | undefined;
-    // AsyncToolset.create({
-    //   id: 'support-backend',
-    //   tools: [],
-    //   setup: async ({ updateTools }) => {
-    //     supportClient = await connectToSupportBackend();
-    //     updateTools([
-    //       tool({
-    //         name: 'lookupOrder',
-    //         description: 'Look up the status of a customer order by its ID.',
-    //         parameters: z.object({ orderId: z.string() }),
-    //         execute: async ({ orderId }, { ctx }) => {
-    //           ctx.update('Looking up your order, one moment.');
-    //           return `Order ${orderId} is ${await supportClient!.statusOf(orderId)}.`;
-    //         },
-    //       }),
-    //     ]);
-    //   },
-    //   aclose: async () => {
-    //     await supportClient?.disconnect();
-    //   },
-    // }),
   });
 }
