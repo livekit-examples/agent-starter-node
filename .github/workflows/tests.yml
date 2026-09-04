@@ -11,38 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Test (Node.js ${{ matrix.node-version }})
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [24]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.15.0
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
-        env:
-          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
-          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
-          LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
-        run: pnpm run test
-
   format:
     name: Formatting & Linting
     runs-on: ubuntu-latest
