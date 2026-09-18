@@ -6,9 +6,9 @@ The following is a guide for working with this project.
 
 ## Project structure
 
-This Node.js project uses the `pnpm` package manager. You should always use `pnpm` to install dependencies, run the agent, and run tests.
+This Node.js project uses the `pnpm` package manager. You should always use `pnpm` to install dependencies and run tests. To run the agent itself, use the LiveKit CLI: `lk agent console` to talk to it in the terminal, `lk agent dev` for a reloading development server, and `lk agent start` for production mode. See the [agent commands reference](https://docs.livekit.io/reference/developer-tools/livekit-cli/agent/) for the options each one accepts.
 
-All app-level code is in the `src/` directory. In general, simple agents can be constructed with a single `main.ts` file. Additional files can be added, but you must retain `main.ts` as the entrypoint (see the associated Dockerfile for how this is deployed).
+All app-level code is in the `src/` directory. In general, simple agents can be constructed with a single `main.ts` file. Additional files can be added, but you must retain `main.ts` as the entrypoint (the Dockerfile and the CLI's entrypoint detection both expect `src/main.ts`).
 
 Be sure to maintain code formatting. You can use the prettier formatter and eslint to format and lint the code. Scripts are available in `package.json`, including `pnpm format` and `pnpm lint`.
 

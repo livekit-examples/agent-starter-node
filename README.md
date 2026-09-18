@@ -27,7 +27,24 @@ This starter app is compatible with any [custom web/mobile frontend](https://doc
 
 This project is designed to work with coding agents like [Claude Code](https://claude.com/product/claude-code), [Cursor](https://www.cursor.com/), and [Codex](https://openai.com/codex/).
 
-For your convenience, LiveKit offers both a CLI and an [MCP server](https://docs.livekit.io/reference/developer-tools/docs-mcp/) that can be used to browse and search its documentation. The [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) (`lk docs`) works with any coding agent that can run shell commands. Install it for your platform:
+For your convenience, LiveKit offers both a CLI and an [MCP server](https://docs.livekit.io/reference/developer-tools/docs-mcp/) that can be used to browse and search its documentation. The [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) (`lk docs`) works with any coding agent that can run shell commands. See [Install the LiveKit CLI](#install-the-livekit-cli) below for installation instructions.
+
+Once installed, your coding agent can search and browse LiveKit documentation directly from the terminal:
+
+```console
+lk docs search "voice agents"
+lk docs get-page /agents/start/voice-ai-quickstart
+```
+
+See the [Coding agent support](https://docs.livekit.io/intro/coding-agents/) guide for more details, including MCP server setup.
+
+The project includes a complete [AGENTS.md](AGENTS.md) file for these assistants. You can modify this file to suit your needs. To learn more about this file, see [https://agents.md](https://agents.md).
+
+## Dev Setup
+
+### Install the LiveKit CLI
+
+The [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) creates the project and runs the agent locally. Install it for your platform:
 
 **macOS:**
 
@@ -47,20 +64,11 @@ curl -sSL https://get.livekit.io/cli | bash
 winget install LiveKit.LiveKitCLI
 ```
 
-The `lk docs` subcommand requires version 2.15.0 or higher. Check your version with `lk --version` and update if needed. Once installed, your coding agent can search and browse LiveKit documentation directly from the terminal:
+Requires version 2.15.0 or higher. Check your version with `lk --version` and update if needed.
 
-```console
-lk docs search "voice agents"
-lk docs get-page /agents/start/voice-ai-quickstart
-```
+### Create the project
 
-See the [Coding agent support](https://docs.livekit.io/intro/coding-agents/) guide for more details, including MCP server setup.
-
-The project includes a complete [AGENTS.md](AGENTS.md) file for these assistants. You can modify this file to suit your needs. To learn more about this file, see [https://agents.md](https://agents.md).
-
-## Dev Setup
-
-Create a project from this template with the LiveKit CLI (recommended):
+Create a project from this template with the CLI (recommended):
 
 ```bash
 lk cloud auth
@@ -72,7 +80,7 @@ The CLI clones the template and configures your environment. Then follow the res
 This project uses [pnpm](https://pnpm.io/) as the package manager.
 
 <details>
-<summary>Alternative: Manual setup without the CLI</summary>
+<summary>Alternative: Set up the project manually</summary>
 
 Clone the repository and install dependencies:
 
@@ -98,17 +106,27 @@ lk app env -w -d .env.local
 
 ## Run the agent
 
-To run the agent during development, use the `dev` command:
+The `lk agent` commands run your agent on your own machine. Run them from the project root — the CLI finds `src/main.ts` on its own.
+
+Run this command to speak to your agent directly in your terminal:
 
 ```console
-pnpm run dev
+lk agent console
 ```
 
-In production, use the `start` command:
+To run the agent for use with a frontend or telephony, use the `dev` command, which reloads the agent whenever you change its source:
 
 ```console
-pnpm run start
+lk agent dev
 ```
+
+To run it in production mode, with clean logging and graceful shutdown, use the `start` command:
+
+```console
+lk agent start
+```
+
+The `dev` script in `package.json` runs `lk agent dev`, so `pnpm run dev` does the same thing. The `start` script runs the agent directly instead, because your deployed agent starts from the `CMD` in the [Dockerfile](Dockerfile) and the container image doesn't include `lk`. See [Server startup modes](https://docs.livekit.io/agents/server/startup-modes/) for the full set of options each command accepts.
 
 ## Frontend & Telephony
 
