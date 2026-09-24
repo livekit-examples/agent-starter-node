@@ -1,5 +1,5 @@
 import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agents';
-import { audioEnhancement } from '@livekit/plugins-ai-coustics';
+import { EnhancerModel, audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
 import { createAgent } from './agent.ts';
@@ -55,7 +55,7 @@ export default defineAgent({
       inputOptions: {
         // ai-coustics QUAIL audio enhancement for noise cancellation
         // Works for both WebRTC and telephony (SIP) participants
-        noiseCancellation: audioEnhancement({ model: 'quailVfS' }),
+        noiseCancellation: audioEnhancement({ model: EnhancerModel.QuailVfS }),
       },
     });
 
