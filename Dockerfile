@@ -73,7 +73,6 @@ USER appuser
 # Set Node.js to production mode
 ENV NODE_ENV=production
 
-# Run the application
+# Run Node as PID 1 so SIGTERM reaches the worker and active jobs can drain.
 # The "start" command tells the worker to connect to LiveKit and begin waiting for jobs.
-# Your package.json must contain a "start" script, such as `"start": "node src/main.ts start"`
-CMD [ "pnpm", "start" ]
+CMD [ "node", "src/main.ts", "start" ]
