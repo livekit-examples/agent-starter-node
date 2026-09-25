@@ -1,0 +1,19 @@
+Dockerfile
+  s_68d5dda11e1300::t_f87344a72b20c7 76,78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b07fffecbc319392f60b5073489803a7d745d36",
+  "prompts": {},
+  "sessions": {
+    "s_68d5dda11e1300": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d902-3988-7d11-8172-213a6f05ae68",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Chenghao Mou <chenghao.mou@livekit.io>"
+    }
+  }
+}
