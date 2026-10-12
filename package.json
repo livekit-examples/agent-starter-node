@@ -11,7 +11,7 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "dev": "node src/main.ts dev",
+    "dev": "lk agent dev",
     "start": "node src/main.ts start"
   },
   "engines": {
