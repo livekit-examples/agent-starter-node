@@ -30,7 +30,7 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@livekit/agents": "^1.9.0",
+    "@livekit/agents": "^1.9.3",
     "@livekit/plugins-ai-coustics": "^0.3.2",
     "@livekit/rtc-node": "^0.13.35",
     "dotenv": "^17.4.2",
