@@ -8,6 +8,8 @@ A starter project for building voice AI apps with [LiveKit Agents for Node.js](h
 
 ## Getting started
 
+1. Install [Node.js](https://nodejs.org/) 24 or later and [pnpm](https://pnpm.io/installation).
+
 1. Install the [LiveKit CLI](https://docs.livekit.io/intro/basics/cli/) and sign in to LiveKit Cloud:
 
    - **macOS:** `brew install livekit-cli`
@@ -30,6 +32,7 @@ A starter project for building voice AI apps with [LiveKit Agents for Node.js](h
 
    ```console
    cd my-agent
+   pnpm install
    lk agent console
    ```
 
