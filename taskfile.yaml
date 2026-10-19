@@ -15,7 +15,7 @@ tasks:
       - echo ''
       - echo '{{ indent .INDENT "cd" }} {{ .REL_PATH }}'
       - task: help_install_hint_if_needed
-      - echo '{{ indent .INDENT "pnpm dev" }}'
+      - echo '{{ indent .INDENT "lk agent dev" }}'
       - echo ''
       - task: help_open_web_console
       - echo 'To deploy your agent to LiveKit cloud:'

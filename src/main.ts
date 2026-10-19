@@ -1,5 +1,5 @@
 import { ServerOptions, cli, defineAgent, inference, voice } from '@livekit/agents';
-import { audioEnhancement } from '@livekit/plugins-ai-coustics';
+import { EnhancerModel, audioEnhancement } from '@livekit/plugins-ai-coustics';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
 import { createAgent } from './agent.ts';
@@ -16,7 +16,7 @@ export default defineAgent({
       // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
       // See all available models at https://docs.livekit.io/agents/models/stt/
       stt: new inference.STT({
-        model: 'assemblyai/universal-3-5-pro',
+        model: 'assemblyai/universal-3-6-pro',
         language: 'en',
       }),
 
@@ -65,7 +65,7 @@ export default defineAgent({
       inputOptions: {
         // ai-coustics QUAIL audio enhancement for noise cancellation
         // Works for both WebRTC and telephony (SIP) participants
-        noiseCancellation: audioEnhancement({ model: 'quailVfS' }),
+        noiseCancellation: audioEnhancement({ model: EnhancerModel.QuailVfS }),
       },
     });
 
