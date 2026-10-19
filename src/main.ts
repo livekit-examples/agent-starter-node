@@ -46,7 +46,10 @@ export default defineAgent({
         turnDetection: new inference.TurnDetector(),
         // Adaptive interruptions use the turn detector to tell a real interruption from a
         // backchannel like "mhm" or "right", so the agent keeps talking through the latter.
-        interruption: { mode: 'adaptive' },
+        // It's on by default on LiveKit Cloud and in dev mode. To use it in a self-hosted agent
+        // in production, uncomment the following line. Self-hosted usage past the monthly allowance is billed.
+        // See https://docs.livekit.io/deploy/admin/quotas-and-limits/#adaptive-interruption-handling
+        // interruption: { mode: 'adaptive' },
         // Allow the LLM to generate a response while waiting for the end of turn
         preemptiveGeneration: { enabled: true },
       },
