@@ -86,9 +86,10 @@ export default defineAgent({
     // Join the room and connect to the user
     await ctx.connect();
 
-    // Greet the user on joining
+    // Speak first: greet the user and introduce the agent before they say anything
     session.generateReply({
-      instructions: 'Greet the user in a helpful and friendly manner.',
+      instructions:
+        'Greet the user warmly, introduce yourself as their helpful assistant, and ask how you can help today.',
     });
   },
 });
