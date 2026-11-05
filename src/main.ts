@@ -17,6 +17,7 @@ export default defineAgent({
       // See all available models at https://docs.livekit.io/agents/models/stt/
       stt: new inference.STT({
         model: 'assemblyai/universal-3-6-pro',
+        // Remove `language` to detect the spoken language and switch between languages mid-conversation
         language: 'en',
       }),
 

@@ -32,9 +32,10 @@ A starter project for building voice AI apps with [LiveKit Agents for Node.js](h
 
    ```console
    cd my-agent
-   pnpm install
    lk agent console
    ```
+
+   If you didn't let `lk agent init` install dependencies, run `pnpm install` first.
 
 ## What's included
 
