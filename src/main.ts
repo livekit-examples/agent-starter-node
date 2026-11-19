@@ -17,7 +17,6 @@ export default defineAgent({
       // See all available models at https://docs.livekit.io/agents/models/stt/
       stt: new inference.STT({
         model: 'assemblyai/universal-3-6-pro',
-        language: 'en',
       }),
 
       // Keyterms bias the STT toward distinctive words it would otherwise misspell.
