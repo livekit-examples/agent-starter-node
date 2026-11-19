@@ -16,7 +16,7 @@ export default defineAgent({
       // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
       // See all available models at https://docs.livekit.io/agents/models/stt/
       stt: new inference.STT({
-        model: 'assemblyai/universal-3-6-pro',
+        model: 'assemblyai/assemblyai-stt-3-7-realtime-agent',
       }),
 
       // Keyterms bias the STT toward distinctive words it would otherwise misspell.
