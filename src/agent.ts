@@ -1,4 +1,4 @@
-import { Agent, dedent, inference } from '@livekit/agents';
+import { Agent, beta, dedent, inference } from '@livekit/agents';
 
 // Build a custom voice AI assistant with the functional `Agent.create` API
 export function createAgent() {
@@ -47,29 +47,34 @@ export function createAgent() {
     // (Note: This is for OpenAI GPT-Live. For other models, see https://docs.livekit.io/agents/models/realtime/)
     // llm: new inference.DuplexModel({ model: 'openai/gpt-live-1', voice: 'marin' }),
 
-    // To add tools, specify `tools` in the constructor.
+    // The end call tool lets the agent hang up when the user is done, and deletes the room
+    // so every participant, including SIP callers, is disconnected.
+    // See more at https://docs.livekit.io/agents/prebuilt/tools/end-call-tool/
+    //
+    // To add your own tools, add them to the `tools` array.
     // Here's an example that adds a simple weather tool.
     // You also have to add `import { tool } from '@livekit/agents'` and `import { z } from 'zod'` to the top of this file
-    // tools: [
-    //   tool({
-    //     name: 'getWeather',
-    //     description: dedent`
-    //       Use this tool to look up current weather information in the given location.
-    //
-    //       If the location is not supported by the weather service, the tool will indicate this.
-    //       You must tell the user the location's weather is unavailable.
-    //     `,
-    //     parameters: z.object({
-    //       location: z
-    //         .string()
-    //         .describe('The location to look up weather information for (e.g. city name)'),
-    //     }),
-    //     execute: async ({ location }) => {
-    //       console.log(`Looking up weather for ${location}`);
-    //
-    //       return 'sunny with a temperature of 70 degrees.';
-    //     },
-    //   }),
-    // ],
+    tools: [
+      beta.createEndCallTool(),
+      // tool({
+      //   name: 'getWeather',
+      //   description: dedent`
+      //     Use this tool to look up current weather information in the given location.
+      //
+      //     If the location is not supported by the weather service, the tool will indicate this.
+      //     You must tell the user the location's weather is unavailable.
+      //   `,
+      //   parameters: z.object({
+      //     location: z
+      //       .string()
+      //       .describe('The location to look up weather information for (e.g. city name)'),
+      //   }),
+      //   execute: async ({ location }) => {
+      //     console.log(`Looking up weather for ${location}`);
+      //
+      //     return 'sunny with a temperature of 70 degrees.';
+      //   },
+      // }),
+    ],
   });
 }
